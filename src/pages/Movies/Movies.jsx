@@ -1,15 +1,25 @@
-import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+// import { ProductList } from '../components/ProductList';
+// import { SearchBox } from '../components/SearchBox';
 
-export function Movies() {
+export const Movies = () => {
+  // const products = getProducts();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const productName = searchParams.get('name') ?? '';
+
+  // const visibleProducts = products.filter(product =>
+  //   product.name.toLowerCase().includes(productName.toLowerCase())
+  // );
+
+  const updateQueryString = name => {
+    const nextParams = name !== '' ? { name } : {};
+    setSearchParams(nextParams);
+  };
+
   return (
-    <div>
-      {['movie-1', 'movie-2', 'movie-3', 'movie-4', 'movie-5'].map(movie => {
-        return (
-          <Link key={movie} to={`${movie}`}>
-            {movie}
-          </Link>
-        );
-      })}
-    </div>
+    <main>
+      <input value={productName} onChange={updateQueryString} />
+      {/* <ProductList products={visibleProducts} /> */}
+    </main>
   );
-}
+};
