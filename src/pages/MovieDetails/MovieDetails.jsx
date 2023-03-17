@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { Container, ContainerAbout, List } from './MovieDetails.styled';
 
 export function MovieDetails({ setId }) {
   const [filmDetails, setFilmDetails] = useState([]);
   const { movieId } = useParams();
+  const location = useLocation();
+  // console.log(location);
 
   const API_URL = 'https://api.themoviedb.org/3/';
   const API_KEY = '158819e65eb0fbf8513ba7b934c25216';
@@ -30,6 +32,7 @@ export function MovieDetails({ setId }) {
 
   return (
     <>
+      <Link to={location.state.from.pathname}>Beak</Link>
       <Container>
         <img src={IMAGE_BASE_URL + poster_path} alt={title} width="250px" />
         <div>
