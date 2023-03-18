@@ -7,6 +7,7 @@ export function MovieDetails({ setId }) {
   const [filmDetails, setFilmDetails] = useState([]);
   const { movieId } = useParams();
   const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/movies';
   // console.log(location);
 
   const API_URL = 'https://api.themoviedb.org/3/';
@@ -14,17 +15,20 @@ export function MovieDetails({ setId }) {
   const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500/';
 
   useEffect(() => {
-    fetch(`${API_URL}/movie/${movieId}?api_key=${API_KEY}`)
-      .then(resp => {
-        if (!resp.ok) {
-          throw new Error(resp.status);
-        }
-        return resp.json();
-      })
-      .then(data => {
-        setFilmDetails(data);
-        setId(movieId);
-      });
+    async function fetchFilm() {
+      await fetch(`${API_URL}/movie/${movieId}?api_key=${API_KEY}`)
+        .then(resp => {
+          if (!resp.ok) {
+            throw new Error(resp.status);
+          }
+          return resp.json();
+        })
+        .then(data => {
+          setFilmDetails(data);
+          setId(movieId);
+        });
+    }
+    fetchFilm();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId]);
 
@@ -32,7 +36,7 @@ export function MovieDetails({ setId }) {
 
   return (
     <>
-      <Link to={location.state.from.pathname}>Beak</Link>
+      <Link to={backLinkHref}>Beak</Link>
       <Container>
         <img src={IMAGE_BASE_URL + poster_path} alt={title} width="250px" />
         <div>
