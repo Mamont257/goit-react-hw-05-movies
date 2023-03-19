@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { Container, ContainerAbout, List } from './MovieDetails.styled';
 
-export function MovieDetails({ setId }) {
+export default function MovieDetails({ setId }) {
   const [filmDetails, setFilmDetails] = useState([]);
   const { movieId } = useParams();
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/movies';
-  // console.log(location);
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
+  const { poster_path, title, popularity, overview, genres = [] } = filmDetails;
 
   const API_URL = 'https://api.themoviedb.org/3/';
   const API_KEY = '158819e65eb0fbf8513ba7b934c25216';
@@ -32,11 +32,9 @@ export function MovieDetails({ setId }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId]);
 
-  const { poster_path, title, popularity, overview, genres = [] } = filmDetails;
-
   return (
     <>
-      <Link to={backLinkHref}>Beak</Link>
+      <Link to={backLinkHref.current}>Beak</Link>
       <Container>
         <img src={IMAGE_BASE_URL + poster_path} alt={title} width="250px" />
         <div>
@@ -64,7 +62,9 @@ export function MovieDetails({ setId }) {
           </li>
         </ul>
       </ContainerAbout>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 }

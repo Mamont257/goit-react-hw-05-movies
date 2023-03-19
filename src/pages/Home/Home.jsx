@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-export function Home() {
+export default function Home() {
   const [filmsName, setFilmsName] = useState([]);
   const location = useLocation();
 
@@ -17,7 +17,6 @@ export function Home() {
         return resp.json();
       })
       .then(data => {
-        // console.log(data.results);
         setFilmsName(data.results);
       });
   }, []);
