@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
+import PropTypes from 'prop-types';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { Container, ContainerAbout, List } from './MovieDetails.styled';
+import defaultImg from '/Users/volodya/Documents/GitHub/goit-react-hw-05-movies/src/default-img.png';
 
 export default function MovieDetails({ setId }) {
   const [filmDetails, setFilmDetails] = useState([]);
@@ -36,7 +38,11 @@ export default function MovieDetails({ setId }) {
     <>
       <Link to={backLinkHref.current}>Beak</Link>
       <Container>
-        <img src={IMAGE_BASE_URL + poster_path} alt={title} width="250px" />
+        <img
+          src={poster_path ? IMAGE_BASE_URL + poster_path : defaultImg}
+          alt={title}
+          width="250px"
+        />
         <div>
           <h2>{title}</h2>
           <p>Popularity: {popularity}</p>
@@ -68,3 +74,7 @@ export default function MovieDetails({ setId }) {
     </>
   );
 }
+
+MovieDetails.propTypes = {
+  setId: PropTypes.func,
+};

@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import defaultImg from '/Users/volodya/Documents/GitHub/goit-react-hw-05-movies/src/default-img.png';
 
 export function Cast({ id }) {
   const [filmCasts, setFilmCasts] = useState([]);
@@ -8,6 +10,9 @@ export function Cast({ id }) {
   const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500/';
 
   useEffect(() => {
+    if (!id) {
+      return;
+    }
     fetch(`${API_URL}/movie/${id}/credits?api_key=${API_KEY}`)
       .then(resp => {
         if (!resp.ok) {
@@ -27,7 +32,8 @@ export function Cast({ id }) {
           return (
             <li key={id}>
               <img
-                src={IMAGE_BASE_URL + profile_path}
+                // src={IMAGE_BASE_URL + profile_path}
+                src={profile_path ? IMAGE_BASE_URL + profile_path : defaultImg}
                 alt={original_name}
                 width="100px"
               />
@@ -40,3 +46,7 @@ export function Cast({ id }) {
     </section>
   );
 }
+
+Cast.propTypes = {
+  id: PropTypes.any,
+};

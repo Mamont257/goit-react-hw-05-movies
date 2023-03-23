@@ -16,7 +16,7 @@ const Reviews = lazy(() =>
 );
 
 export const App = () => {
-  const [filmId, setFilmId] = useState('545611');
+  const [filmId, setFilmId] = useState();
 
   return (
     <div>

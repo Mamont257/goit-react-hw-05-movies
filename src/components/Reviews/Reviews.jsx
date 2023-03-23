@@ -7,6 +7,9 @@ export function Reviews({ id }) {
   const API_KEY = '158819e65eb0fbf8513ba7b934c25216';
 
   useEffect(() => {
+    if (!id) {
+      return;
+    }
     fetch(`${API_URL}/movie/${id}/reviews?api_key=${API_KEY}`)
       .then(resp => {
         if (!resp.ok) {
