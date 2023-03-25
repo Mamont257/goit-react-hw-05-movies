@@ -33,6 +33,7 @@ export default function MovieDetails({ setId }) {
     fetchFilm();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId]);
+
   return (
     <>
       <Link to={backLinkHref.current}>Beak</Link>

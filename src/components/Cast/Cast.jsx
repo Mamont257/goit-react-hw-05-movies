@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import defaultImg from '/Users/volodya/Documents/GitHub/goit-react-hw-05-movies/src/default-img.png';
+import defaultImg from '../../default-img.png';
 
 export function Cast({ id }) {
   const [filmCasts, setFilmCasts] = useState([]);
