@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { Container, ContainerAbout, List } from './MovieDetails.styled';
-import defaultImg from '/Users/volodya/Documents/GitHub/goit-react-hw-05-movies/src/default-img.png';
+import defaultImg from '../../default-img.png';
 
 export default function MovieDetails({ setId }) {
   const [filmDetails, setFilmDetails] = useState([]);
